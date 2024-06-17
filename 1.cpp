@@ -99,24 +99,41 @@ void saveToFile(const vector<Stationery>& products) {
 }
 
 //hàm sắp xếp theo ID
-void sortById(vector<Stationery>& products) {
-    sort(products.begin(), products.end(), [](const Stationery& a, const Stationery& b) {
-        return a.getId() < b.getId();
-    });
+void selectionSortById(vector<Stationery>& products) {
+    for (size_t i = 0; i < products.size() - 1; ++i) {
+        size_t minIndex = i;
+        for (size_t j = i + 1; j < products.size(); ++j) {
+            if (products[j].getId() < products[minIndex].getId()) {
+                minIndex = j;
+            }
+        }
+        swap(products[i], products[minIndex]);
+    }
 }
-
 //hàm sắp xếp theo tên
-void sortByName(vector<Stationery>& products) {
-    sort(products.begin(), products.end(), [](const Stationery& a, const Stationery& b) {
-        return a.getName() < b.getName();
-    });
+void selectionSortByName(vector<Stationery>& products) {
+    for (size_t i = 0; i < products.size() - 1; ++i) {
+        size_t minIndex = i;
+        for (size_t j = i + 1; j < products.size(); ++j) {
+            if (products[j].getName() < products[minIndex].getName()) {
+                minIndex = j;
+            }
+        }
+        swap(products[i], products[minIndex]);
+    }
 }
 
 // hàm sắp xếp theo giá tiền
-void sortByPrice(vector<Stationery>& products) {
-    sort(products.begin(), products.end(), [](const Stationery& a, const Stationery& b) {
-        return a.getPrice() < b.getPrice();
-    });
+void selectionSortByPrice(vector<Stationery>& products) {
+    for (size_t i = 0; i < products.size() - 1; ++i) {
+        size_t minIndex = i;
+        for (size_t j = i + 1; j < products.size(); ++j) {
+            if (products[j].getPrice() < products[minIndex].getPrice()) {
+                minIndex = j;
+            }
+        }
+        swap(products[i], products[minIndex]);
+    }
 }
 
 
@@ -201,9 +218,9 @@ int main() {
                 cout << "\nSap xep theo: \n1. ID\n2. Ten\n3. Gia\nNhap lua chon: ";
                 cin >> sortChoice;
                 switch (sortChoice) {
-                    case 1: sortById(products); break;
-                    case 2: sortByName(products); break;
-                    case 3: sortByPrice(products); break;
+                    case 1: selectionSortById(products); break;
+                    case 2: selectionSortByName(products); break;
+                    case 3: selectionSortByPrice(products); break;
                     default: cout << "Lua chon khong hop le.\n"; break;
                 }
                 break;
