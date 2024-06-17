@@ -2,21 +2,25 @@
 using namespace std;
 #pragma once
 
-class Stationery{
+class Stationery {
     int id;
     string name;
     double price;
     int quantity;
-    static double amount;
-    static int count;
-    public:
-        Stationery(int _id = 0,string _name = " ",double _price = 0,int _quantity = 0);
-        ~Stationery();
-        void changeStationery(int _id,string _name,double _price, int _quantity);
-        void sortStationery();
-        void searchStationery();
-        static void billReceipt(int _id,string _name,double _price, int count);
-};        
+
+public:
+    Stationery(int _id = 0, string _n = " ", double _p = 0, int _q = 0);
+    int getId() const; 
+    string getName() const; 
+    double getPrice() const; 
+    int getQuantity() const;
+    void setId(int _id);
+    void setName(string name);
+    void setPrice(double price);
+    void setQuantity(int quantity);
+    void nhaptt();
+    void hienthitt() const; 
+};      
 
 
 
