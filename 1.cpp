@@ -68,7 +68,8 @@ void displayMenu() {
     cout << "4. Hien thi danh sach san pham\n";
     cout << "5. Sap xep san pham\n";
     cout << "6. Luu danh sach san pham\n";
-    cout << "7. Thoat\n";
+    cout << "7. Tim kiem san pham\n";
+    cout << "8. Thoat chuong trinh.\n";
     cout << "Nhap lua chon: ";
 }
 
@@ -76,6 +77,16 @@ void displayMenu() {
 int findProductById(const vector<Stationery>& products, int id) {
     for (size_t i = 0; i < products.size(); ++i) {
         if (products[i].getId() == id) {
+            return i;
+        }
+    }
+    return -1; // Không tìm thấy
+}
+
+//hàm tìm kiếm sản phẩm theo tên
+int findProductByName(const vector<Stationery>& products, string name){
+    for (size_t i = 0; i < products.size(); ++i) {
+        if (products[i].getName() == name) {
             return i;
         }
     }
@@ -182,14 +193,40 @@ int main() {
                 break;
             }
             case 2: {
-                int id;
-                cout << "Nhap ID san pham can sua: ";
-                cin >> id;
-                int index = findProductById(products, id);
-                if (index != -1) {
-                    products[index].nhaptt();
-                } else {
-                    cout << "San pham khong ton tai.\n";
+                int findchoice;
+                cout << "Tim kiem san pham theo : \n1.ID \n2.Ten \nNhap lua chon : ";
+                cin >> findchoice;
+                cin.ignore(); // To ignore newline character after findchoice input
+
+                switch(findchoice) {
+                    case 1: {
+                        int id;
+                        cout << "Nhap ID san pham can sua: ";
+                        cin >> id;
+                        cin.ignore();
+                        int index = findProductById(products, id);
+                        if (index != -1) {
+                            products[index].nhaptt();
+                        } else {
+                            cout << "San pham khong ton tai.\n";
+                        }
+                        break;
+                    }
+                    case 2: {
+                        string name;
+                        cout << "Nhap ten san pham can sua: ";
+                        getline(cin, name);
+                        int index = findProductByName(products, name);
+                        if (index != -1) {
+                            products[index].nhaptt();
+                        } else {
+                            cout << "San pham khong ton tai.\n";
+                        }
+                        break;
+                    }
+                    default:
+                        cout << "Lua chon khong hop le.\n";
+                        break;
                 }
                 break;
             }
@@ -230,14 +267,52 @@ int main() {
                 cout << "Da luu danh sach san pham vao file data.txt\n";
                 break;
             }
-            case 7:
+            case 7: {
+                int findchoice;
+                cout << "Tim kiem san pham theo : \n1.ID \n2.Ten \nNhap lua chon : ";
+                cin >> findchoice;
+                cin.ignore(); 
+
+                switch(findchoice) {
+                    case 1: {
+                        int id;
+                        cout << "Nhap ID san pham can xem thong tin: ";
+                        cin >> id;
+                        cin.ignore();
+                        int index = findProductById(products, id);
+                        if (index != -1) {
+                            products[index].hienthitt();
+                        } else {
+                            cout << "San pham khong ton tai.\n";
+                        }
+                        break;
+                    }
+                    case 2: {
+                        string name;
+                        cout << "Nhap ten san pham can xem thong tin: ";
+                        getline(cin, name);
+                        int index = findProductByName(products, name);
+                        if (index != -1) {
+                            products[index].hienthitt();
+                        } else {
+                            cout << "San pham khong ton tai.\n";
+                        }
+                        break;
+                    }
+                    default:
+                        cout << "Lua chon khong hop le.\n";
+                        break;
+                }
+                break;
+            }
+            case 8:
                 cout << "Thoat chuong trinh.\n";
                 break;
             default:
                 cout << "Lua chon khong hop le. Vui long chon lai.\n";
                 break;
         }
-    } while (choice != 7);
+    } while (choice != 8);
 
     return 0;
 }
